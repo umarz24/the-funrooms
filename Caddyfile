@@ -1,0 +1,29 @@
+{
+	admin off
+	auto_https off
+	persist_config off
+}
+
+# Railway injects $PORT. The fallback keeps `docker run -p 8080:8080` working locally.
+:{$PORT:8080} {
+	root * /srv
+	encode gzip zstd
+	file_server
+
+	# The game is one file; anything unknown falls back to it.
+	try_files {path} /index.html
+
+	header {
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		-Server
+		# The whole game is one HTML file with everything inlined, so there is
+		# nothing worth caching and a stale copy would hide a deploy.
+		Cache-Control "no-cache, must-revalidate"
+	}
+
+	log {
+		output stdout
+		format console
+	}
+}

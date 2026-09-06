@@ -1,0 +1,14 @@
+{
+  "name": "funrooms-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The Funrooms — co-op WebSocket relay + Stripe coin store",
+  "main": "index.js",
+  "engines": { "node": ">=20" },
+  "scripts": { "start": "node index.js" },
+  "dependencies": {
+    "ws": "^8.18.0",
+    "stripe": "^17.5.0",
+    "@supabase/supabase-js": "^2.47.10"
+  }
+}
